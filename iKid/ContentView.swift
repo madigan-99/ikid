@@ -35,8 +35,7 @@ struct ContentView: View {
     @State var images: [String] = ["joke1", "joke2", "joke3", "joke4"]
     var body: some View {
         TabView {
-            ImageJokes(images: $images)
-            //Jokes(joke: $jokes[0], answer: $answers[0])
+            Jokes(joke: $jokes[0], answer: $answers[0])
                 .padding()
                 .tabItem {
                     Image(systemName: "hand.thumbsup.fill")

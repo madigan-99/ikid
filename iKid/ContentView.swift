@@ -35,7 +35,8 @@ struct ContentView: View {
     @State var images: [String] = ["joke1", "joke2", "joke3", "joke4"]
     var body: some View {
         TabView {
-            Jokes(joke: $jokes[0], answer: $answers[0])
+            ImageJokes(images: $images)
+            //Jokes(joke: $jokes[0], answer: $answers[0])
                 .padding()
                 .tabItem {
                     Image(systemName: "hand.thumbsup.fill")
@@ -120,14 +121,25 @@ struct ImageJokes: View {
                         Spacer()
                         Image(images[count]).resizable()
                             .scaledToFit()
+                        Spacer()
+                        HStack {
                         Button(action: {
-                            count += 1
-                            if (count == images.count) {
-                                count = 0
+                            if (count > 0) {
+                                count -= 1
                             }
                         }) {
-                            Spacer()
-                            Text("Next").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize))
+                           
+                            Text("Back").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize)).foregroundColor(count == 0 ? .gray : .blue)
+                        }
+                        Spacer()
+                        Button(action: {
+                            if (count < images.count - 1) {
+                                count += 1
+                            }
+                        }) {
+                         
+                            Text("Next").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize)).foregroundColor(count == images.count - 1 ? .gray : .blue)
+                        }
                         }
                     }
                 }.frame(width: metrics.size.width, height: metrics.size.height, alignment: .center)
@@ -146,16 +158,24 @@ struct KnockKnock: View {
                 VStack(alignment: .center) {
                     Group{
                         Text(phrase[count]).font(.system(size: 25 * fontSize)).padding(width/20).multilineTextAlignment(.center).frame(width: metrics.size.width, height: metrics.size.height / 1.1, alignment: .center)
-                        
-                        
+                        HStack {
                         Button(action: {
-                            count += 1
-                            if (count == phrase.count) {
-                                count = 0
+                            if (count > 0) {
+                                count -= 1
                             }
                         }) {
-                            Spacer()
-                            Text("Next").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize))
+                           
+                            Text("Back").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize)).foregroundColor(count == 0 ? .gray : .blue)
+                        }
+                        Spacer()
+                        Button(action: {
+                            if (count < phrase.count - 1) {
+                                count += 1
+                            }
+                        }) {
+                         
+                            Text("Next").frame(alignment: .bottomTrailing).multilineTextAlignment(.trailing).font(.system(size: 25 * fontSize)).foregroundColor(count == phrase.count - 1 ? .gray : .blue)
+                        }
                         }
                     }
                 }.frame(width: metrics.size.width, height: metrics.size.height, alignment: .center)
